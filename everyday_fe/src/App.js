@@ -1,12 +1,13 @@
 import './App.css';
+import Receipt from './components/Receipt';
 
 function App() {
-  const code = 404;
+  const tags = ["śniadanie", "fit"];
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          <code>{code}</code>
+          <Receipt title="Owsianka" tags={tags}/>
         </p>
       </header>
     </div>
