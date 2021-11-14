@@ -1,0 +1,17 @@
+{
+  "name": "everyday",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.7",
+    "dinero.js": "^1.9.1"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}
