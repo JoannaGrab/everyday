@@ -25,7 +25,7 @@ const expected = [
     JSON.stringify(pln(14618)),
 ];
 
-test('history in the very beginning should be empty', () => {
+test('at the very start the history is empty', () => {
     // given
     const bond = sampleEDO(investment_start());
     // when
@@ -34,7 +34,7 @@ test('history in the very beginning should be empty', () => {
     expect(history.length).toBe(0);
 });
 
-test('history in different month, but the same year should be empty', () => {
+test('before the end of the first year the history is empty', () => {
     // given
     const bond = sampleEDO(investment_start().add(3, 'month'));
     // when
@@ -44,7 +44,7 @@ test('history in different month, but the same year should be empty', () => {
 });
 
 
-test('history after first year should have value incread by the first year roi', () => {
+test('after the first year ROI makes the profit', () => {
     // given
     const bond = sampleEDO(investment_start());
     // and
@@ -57,7 +57,7 @@ test('history after first year should have value incread by the first year roi',
     expect(JSON.stringify(history[0])).toEqual(expected[0]);
 });
 
-test('history after two years should have value incread by roi and mergin + inflation', () => {
+test('after two years ROI and margin + inflation makes the profit', () => {
     // given
     const bond = sampleEDO(investment_start());
     // and
@@ -72,7 +72,7 @@ test('history after two years should have value incread by roi and mergin + infl
     expect(JSON.stringify(history[1])).toEqual(expected[1]);
 });
 
-test('history after two ten years should have value incread by roi and mergin + inflation', () => {
+test('after ten years ROI and margin + inflation makes the profit', () => {
     // given
     const bond = sampleEDO(investment_start());
     // and
@@ -85,7 +85,7 @@ test('history after two ten years should have value incread by roi and mergin + 
     expect(history.map(x => JSON.stringify(x))).toEqual(expected);
 });
 
-test('history after more than two ten years should have value incread by roi and mergin + inflation', () => {
+test('after more than ten years the profit does not change', () => {
     // given
     const bond = sampleEDO(investment_start());
     // and
