@@ -1,14 +1,21 @@
 import './App.css';
+import { Outlet, Link } from 'react-router-dom';
 
 function App() {
-  const code = 404;
+  const tags = ["śniadanie", "fit"];
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          <code>{code}</code>
-        </p>
-      </header>
+      <h1>Everyday</h1>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem"
+        }}
+      >
+        <Link to="/savings">Savings</Link> |{" "}
+        <Link to="/recipes">Recipes</Link>
+      </nav>
+      <Outlet />
     </div>
   );
 }
