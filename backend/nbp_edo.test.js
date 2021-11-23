@@ -9,7 +9,7 @@ const Dinero = require("dinero.js")
 // inflation = 2.5% 
 let pln = (amount) => Dinero({ amount: amount, currency: 'PLN' });
 let sampleEDO = (start) => EDO.createBond(pln(10000), 2.7, 1.5, 2.5, start);
-let investment_start = () => dayjs("2018-04-04T16:00:00.000Z").startOf('day')
+let investment_start = () => dayjs("2018-04-04T16:00:00.000Z").startOf('day');
 
 const expected = [
     JSON.stringify(pln(10270)),
