@@ -12,6 +12,7 @@ let sampleEDO = (start) => EDO.createBond(pln(10000), 2.7, 1.5, 2.5, start);
 let investment_start = () => dayjs("2018-04-04T16:00:00.000Z").startOf('day');
 
 const expected = [
+    JSON.stringify(pln(10000)),
     JSON.stringify(pln(10270)),
     JSON.stringify(pln(10681)),
     JSON.stringify(pln(11108)),
@@ -31,7 +32,9 @@ test('at the very start the history is empty', () => {
     // when
     const history = EDO.edoHistory(bond, investment_start());
     // then
-    expect(history.length).toBe(0);
+    expect(history.length).toBe(1);
+    // and
+    expect(JSON.stringify(history[0])).toEqual(expected[0]);
 });
 
 test('before the end of the first year the history is empty', () => {
@@ -40,7 +43,9 @@ test('before the end of the first year the history is empty', () => {
     // when
     const history = EDO.edoHistory(bond, investment_start());
     // then
-    expect(history.length).toBe(0);
+    expect(history.length).toBe(1);
+    // and
+    expect(JSON.stringify(history[0])).toEqual(expected[0]);
 });
 
 
@@ -52,9 +57,11 @@ test('after the first year ROI makes the profit', () => {
     // when
     const history = EDO.edoHistory(bond, checkpoint);
     // then
-    expect(history.length).toBe(1);
+    expect(history.length).toBe(2);
     // and
     expect(JSON.stringify(history[0])).toEqual(expected[0]);
+    // and
+    expect(JSON.stringify(history[1])).toEqual(expected[1]);
 });
 
 test('after two years ROI and margin + inflation makes the profit', () => {
@@ -65,11 +72,13 @@ test('after two years ROI and margin + inflation makes the profit', () => {
     // when
     const history = EDO.edoHistory(bond, checkpoint);
     // then
-    expect(history.length).toBe(2);
+    expect(history.length).toBe(3);
     // and
     expect(JSON.stringify(history[0])).toEqual(expected[0]);
     // and
     expect(JSON.stringify(history[1])).toEqual(expected[1]);
+    // and
+    expect(JSON.stringify(history[2])).toEqual(expected[2]);
 });
 
 test('after ten years ROI and margin + inflation makes the profit', () => {
@@ -80,7 +89,7 @@ test('after ten years ROI and margin + inflation makes the profit', () => {
     // when
     const history = EDO.edoHistory(bond, checkpoint);
     // then
-    expect(history.length).toBe(10);
+    expect(history.length).toBe(11);
     // and
     expect(history.map(x => JSON.stringify(x))).toEqual(expected);
 });
@@ -89,11 +98,11 @@ test('after more than ten years the profit does not change', () => {
     // given
     const bond = sampleEDO(investment_start());
     // and
-    const checkpoint = investment_start().add(16, 'year');
+    const checkpoint = investment_start().add(11, 'year');
     // when
     const history = EDO.edoHistory(bond, checkpoint);
     // then
-    expect(history.length).toBe(10);
+    expect(history.length).toBe(11);
     // and
     expect(history.map(x => JSON.stringify(x))).toEqual(expected);
 });

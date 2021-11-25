@@ -23,11 +23,11 @@ module.exports = {
         const startYear = edo.start.startOf('year');
         const historyEnd = date.startOf('year');
         if (historyEnd.isSameOrBefore(startYear)) {
-            return [];
+            return [edo.value];
         }
         const first_year_bonus = edo.value.percentage(edo.first_year_roi);
         let total = edo.value.add(first_year_bonus);
-        const out = [total];
+        const out = [edo.value, total];
 
         let years = historyEnd.diff(startYear, 'years')
         if(years > 10 ){
