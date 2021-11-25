@@ -10,8 +10,6 @@ const port = 3000;
 const server = http.createServer(async (req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  // const edo = bonds.createBond(Dinero({ amount: 10000, currency: 'PLN' }), 2.7, 1.5, 2.5, dayjs());
-  // const history = bonds.edoHistory(edo, dayjs().add(2, "year"));
   const {rows, error} = await db.query("SELECT * FROM bonds");
   console.log(error);
   res.end(JSON.stringify(rows));
