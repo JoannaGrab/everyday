@@ -1,5 +1,5 @@
 CREATE TABLE bonds (
-    id          INTEGER NOT NULL PRIMARY KEY,
+    id          SERIAL PRIMARY KEY,
     symbol      VARCHAR(3) NOT NULL,
     min_value   INTEGER,
     roi         INTEGER NOT NULL,
