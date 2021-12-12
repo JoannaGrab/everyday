@@ -4,7 +4,7 @@ import SummaryTable from './SummaryTable';
 import { useState } from 'react';
 
 function Component() {
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState(0);
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [rows, setRows] = useState([]);
