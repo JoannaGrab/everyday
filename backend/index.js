@@ -27,8 +27,8 @@ app.get('/finance/balance', async (req, res) => {
     res.status(400).json({ errors });
     return;
   }
-  const b = await db.getOperations();
-  res.json(b);
+  const operations = await db.getOperations();
+  res.json(operations);
 })
 
 
