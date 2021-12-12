@@ -8,6 +8,7 @@ import {
   Routes,
   Route 
 } from 'react-router-dom';
+import Finance from './routes/Finance';
 import Savings from './routes/Savings';
 import Recipes from './routes/Recipes';
 
@@ -16,6 +17,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} >
+          <Route path="finance" element={<Finance />} />
           <Route path="savings" element={<Savings />} />
           <Route path="recipes" element={<Recipes />} />
         </Route>
