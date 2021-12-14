@@ -10,6 +10,7 @@
     "stop_db": "env $(cat dev.env | xargs) docker compose down"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dayjs": "^1.10.7",
     "dinero.js": "^1.9.1",
     "express": "^4.17.1",

@@ -2,6 +2,7 @@ const express = require('express');
 const dayjs = require('dayjs');
 const Dinero = require("dinero.js");
 const db = require("./db");
+const cors = require("cors");
 
 const currencies = {
   "PLN": true,
@@ -9,9 +10,14 @@ const currencies = {
   "EUR": true
 }
 
+var corsOptions = {
+  origin: 'http://localhost:3000'
+}
+
 const app = express();
 app.use(express.json());
-const port = 3000
+app.use(cors(corsOptions));
+const port = 3001
 
 app.get('/finance/balance', async (req, res) => {
   const errors = [];
@@ -27,8 +33,18 @@ app.get('/finance/balance', async (req, res) => {
     res.status(400).json({ errors });
     return;
   }
-  const b = await db.getOperations();
-  res.json(b);
+  const operations = await db.getOperations();
+  res.json(operations.rows.map(x => {
+    return {
+      id: x.id,
+      value: {
+        currency: x.currency,
+        amount: x.amount
+      },
+      date: x.date,
+      name: x.name
+    };
+  }));
 })
 
 
