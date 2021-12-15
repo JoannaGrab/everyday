@@ -1,7 +1,17 @@
 const { Pool } = require('pg')
-const {dbConfig} = require('../config')
 
-const pool = new Pool(dbConfig)
+const pool = new Pool({
+  host: 'localhost',
+  port: process.env.POSTGRES_PORT,
+  user: process.env.POSTGRES_USER,
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD
+})
 module.exports = {
-  query: (text, params) => pool.query(text, params)
+  addOperation: async (op) => {
+    return await pool.query("INSERT INTO operations(currency,amount,date,name) VALUES($1,$2,$3,$4)", Object.values(op));
+  },
+  getOperations: async () => {
+    return await pool.query("SELECT * FROM operations");
+  }
 }
