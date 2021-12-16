@@ -42,7 +42,7 @@ app.get('/finance/balance', async (req, res) => {
         amount: x.amount
       },
       date: x.date,
-      name: x.name
+      title: x.name
     };
   }));
 })

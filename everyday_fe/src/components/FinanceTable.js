@@ -1,54 +1,36 @@
 import InputsBar from './InputsBar';
 import FinanceDetailsTable from './FinanceDetailsTable';
 import SummaryTable from './SummaryTable';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Component() {
-    const [amount, setAmount] = useState(0);
-    const [name, setName] = useState('');
-    const [date, setDate] = useState('');
     const [rows, setRows] = useState([]);
 
-    const afterChange = (set) => {
-        return (event) => {
-            set(event.target.value);
-        }
+    async function getOperations() {
+        const url = 'http://localhost:3001/finance/balance?from=2021-01-0100:00:00&to=2021-12-1500:00:00';
+        const data = await fetch(url);
+        const json = await data.json();
+        setRows(json);
     }
 
-    const inputs = [
-        {
-            'title': 'Amount',
-            'value': amount,
-            'function': afterChange(setAmount)
-        },
-        {
-            'title': 'Name',
-            'value': name,
-            'function': afterChange(setName)
-        },
-        {
-            'title': 'Date',
-            'value': date,
-            'function': afterChange(setDate)
-        }
-    ]
+    useEffect(() => { getOperations() }, []);
 
-    const row = {
-        'value': {
-            'currency': 'PLN',
-            'amount': amount * 100
-        },
-        'date': date,
-        'name': name
-    }
+    const onClick = async (operation) => {
+        operation.value.amount = operation.value.amount * 100;
 
-    const onClick = () => {
-        setRows([...rows, row])
+        await fetch('http://127.0.0.1:3001/finance/balance/operation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(operation),
+        });
+        getOperations();
     }
 
     return (
         <div>
-            <InputsBar inputs={inputs} onClick={onClick} />
+            <InputsBar onAdd={onClick} />
             <FinanceDetailsTable rows={rows} />
             <SummaryTable summary={rows} />
         </div>

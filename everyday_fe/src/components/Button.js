@@ -1,11 +1,14 @@
-function Component({ onClick }) {
-    const buttonStyle = {
-        marginTop: '50px',
-        height: '10%'
-    };
-
+function Component({ marginTop, height, onClick, label }) {
     return (
-        <button style={buttonStyle} onClick={onClick}>+</button>
+        <button
+            style={{
+                marginTop: marginTop,
+                height: height
+            }}
+            onClick={onClick}
+        >
+            {label}
+        </button>
     )
 }
 

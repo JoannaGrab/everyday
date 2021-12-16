@@ -5,9 +5,9 @@ function Component({ rows }) {
         <table>
             <thead>
                 <tr>
-                    <th> Amount</th>
-                    <th> Name</th>
-                    <th> Date</th>
+                    <th>Amount</th>
+                    <th>Title</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
