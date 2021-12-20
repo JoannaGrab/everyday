@@ -9,7 +9,7 @@ const pool = new Pool({
 })
 module.exports = {
   addOperation: async (op) => {
-    return await pool.query("INSERT INTO operations(currency,amount,date,name) VALUES($1,$2,$3,$4)", Object.values(op));
+    return await pool.query("INSERT INTO operations(currency,amount,date,name,tags) VALUES($1,$2,$3,$4,$5)", Object.values(op));
   },
   getOperations: async () => {
     return await pool.query("SELECT * FROM operations");

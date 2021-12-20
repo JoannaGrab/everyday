@@ -65,8 +65,8 @@ app.post('/finance/balance/operation', async (req, res) => {
   let amount, currency;
   if (value) {
     amount = req.body.value.amount;
-    if (!amount || amount < 0) {
-      errors.push("`amount` must be a number greater than 0")
+    if (!amount || amount === 0) {
+      errors.push("`amount` must be a number other than 0")
     }
     currency = req.body.value.currency;
     if (!currency || currency.length != 3 || !currencies[currency]) {
@@ -78,12 +78,16 @@ app.post('/finance/balance/operation', async (req, res) => {
       errors.push("`value` does not represent a correct money");
     }
   }
+  const tags = req.body.tags;
+  if (typeof(tags) !== 'string'){
+    errors.push("`tags` must be a string");
+  }
   if (errors.length > 0) {
     res.status(400).json({ errors });
     return;
   }
 
-  const result = await db.addOperation({currency, amount, date, title});
+  const result = await db.addOperation({currency, amount, date, title, tags});
   if(result.rowCount !== 1){
     res.status(500).end();
   } 
